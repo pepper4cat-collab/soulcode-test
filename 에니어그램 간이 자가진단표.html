@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>에니어그램 자가진단표 — 소울코드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────
+   BASE
+───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #EEECEA;
+  --card:    #F5F3F0;
+  --white:   #FFFFFF;
+  --gold:    #C4A06A;
+  --gold-l:  rgba(196,160,106,0.12);
+  --gold-ll: rgba(196,160,106,0.06);
+  --taupe:   #7A7570;
+  --text:    #2D2D2A;
+  --mid:     #6B6460;
+  --mute:    #BCBAB7;
+  --line:    #DDD8D4;
+  --red:     #B03030;
+}
+
+body {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─────────────────────────────────
+   COVER
+───────────────────────────────── */
+.cover {
+  background: var(--white);
+  padding: 52px 26px 44px;
+  border-bottom: 1px solid var(--line);
+}
+.cover-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.cover-pill {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 11px;
+  padding: 3px 13px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+.cover-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.cover-title em { color: var(--gold); font-style: normal; }
+.cover-rule { width: 32px; height: 1.5px; background: var(--gold); margin: 16px 0; }
+.cover-desc { font-size: 13px; color: var(--mid); line-height: 1.85; margin-bottom: 24px; }
+.cover-howto {
+  background: var(--card);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.cover-howto-title { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 10px; }
+.hr { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(196,160,106,0.15); font-size: 12.5px; color: var(--mid); line-height: 1.65; }
+.hr:last-child { border-bottom: none; }
+.hn { color: var(--gold); font-weight: 700; flex-shrink: 0; width: 14px; }
+.cover-warn { font-size: 11.5px; color: var(--mute); line-height: 1.7; }
+
+/* ─────────────────────────────────
+   SECTION
+───────────────────────────────── */
+.section { padding: 44px 26px; }
+.section + .section { border-top: 1px solid var(--line); }
+.section.bg-card { background: var(--card); }
+.section.bg-white { background: var(--white); }
+.section.bg-base  { background: var(--bg); }
+
+.enlbl { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); display: block; margin-bottom: 4px; }
+.stitle { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+.grule { width: 28px; height: 1px; background: var(--gold); margin: 12px 0 14px; }
+.sdesc { font-size: 13px; color: var(--mid); line-height: 1.8; margin-bottom: 22px; }
+
+/* ─────────────────────────────────
+   CENTER BADGE
+───────────────────────────────── */
+.cbadge {
+  display: flex; align-items: center; gap: 11px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 11px 15px;
+  margin-bottom: 6px;
+}
+.cdot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.cdot.j { background: #8B7355; }
+.cdot.g { background: var(--gold); }
+.cdot.m { background: #6A8FA8; }
+.cbadge-main { font-size: 13px; font-weight: 700; color: var(--text); }
+.cbadge-sub  { font-size: 11px; color: var(--mute); margin-top: 1px; }
+
+/* ─────────────────────────────────
+   CHECK ITEMS
+───────────────────────────────── */
+.check-group { margin-bottom: 22px; }
+.ci {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px; color: var(--text); line-height: 1.65;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-radius: 3px;
+}
+.ci:last-child { border-bottom: none; }
+.ci:hover { background: rgba(196,160,106,0.05); }
+.ci.checked { background: rgba(196,160,106,0.08); }
+.chk {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--gold);
+  border-radius: 3px;
+  margin-top: 1px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  font-size: 12px; color: #fff;
+}
+.ci.checked .chk { background: var(--gold); }
+
+/* ─────────────────────────────────
+   COUNTER BARS
+───────────────────────────────── */
+.counter-row {
+  display: flex; gap: 8px; margin-bottom: 22px;
+}
+.counter-item {
+  flex: 1; text-align: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 8px;
+  transition: all 0.3s;
+}
+.counter-item.winner {
+  border-color: var(--gold);
+  background: rgba(196,160,106,0.08);
+}
+.counter-dot { width: 8px; height: 8px; border-radius: 50%; margin: 0 auto 6px; }
+.counter-label { font-size: 10px; color: var(--mute); margin-bottom: 6px; }
+.counter-num {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.counter-of7 { font-size: 10px; color: var(--mute); }
+
+/* ─────────────────────────────────
+   STEP 1 → STEP 2 BUTTON
+───────────────────────────────── */
+.btn-primary {
+  display: block; width: 100%;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 14px; font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s, transform 0.1s;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { background: var(--mute); cursor: default; }
+.btn-ghost {
+  display: block; width: 100%;
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 13px; font-weight: 500;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+.btn-ghost:hover { background: rgba(196,160,106,0.08); }
+
+/* ─────────────────────────────────
+   CENTER RESULT BANNER
+───────────────────────────────── */
+.center-result {
+  display: none;
+  background: var(--white);
+  border: 1.5px solid var(--gold);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.center-result.show { display: block; }
+.cr-label { font-size: 10px; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 8px; }
+.cr-center { font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.cr-types { font-size: 12px; color: var(--mid); }
+.cr-score { font-size: 11px; color: var(--mute); margin-top: 8px; }
+
+/* ─────────────────────────────────
+   TYPE CARDS (Step 2 선택)
+───────────────────────────────── */
+.type-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+.tc {
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-left: 4px solid var(--line);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.tc:hover { border-color: var(--gold); border-left-color: var(--gold); background: rgba(196,160,106,0.04); }
+.tc.selected { border-color: var(--gold); border-left-color: var(--gold); background: rgba(196,160,106,0.08); }
+.tc-wm {
+  position: absolute; right: 10px; top: 4px;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 36px; font-weight: 700;
+  color: #EDE5D8; line-height: 1;
+}
+.tc-name { font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.tc-eng  { font-size: 11px; color: var(--gold); margin-bottom: 10px; }
+.tc-divider { height: 1px; background: var(--line); margin-bottom: 10px; }
+.tc-grid { display: flex; gap: 12px; margin-bottom: 10px; }
+.tc-cell { flex: 1; }
+.tc-lbl { font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 0.08em; margin-bottom: 3px; }
+.tc-val { font-size: 12px; color: var(--mid); line-height: 1.6; }
+.tc-pat { background: var(--card); border-left: 2px solid var(--gold); border-radius: 0 4px 4px 0; padding: 9px 12px; font-size: 12px; color: var(--mid); line-height: 1.7; }
+.tc-pat strong { color: var(--text); font-weight: 600; }
+.tc-select-mark {
+  display: none;
+  position: absolute; top: 12px; right: 14px;
+  width: 22px; height: 22px;
+  background: var(--gold);
+  border-radius: 50%;
+  color: #fff; font-size: 13px;
+  align-items: center; justify-content: center;
+}
+.tc.selected .tc-select-mark { display: flex; }
+
+/* ─────────────────────────────────
+   RESULT CARD
+───────────────────────────────── */
+#result-section { display: none; }
+#result-section.show { display: block; }
+
+.result-card {
+  background: var(--white);
+  border: 1.5px solid var(--gold);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.rc-header {
+  background: var(--gold);
+  padding: 20px 22px;
+  color: #fff;
+}
+.rc-eyebrow { font-size: 10px; letter-spacing: 0.18em; opacity: 0.8; margin-bottom: 6px; }
+.rc-type-name { font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 3px; }
+.rc-eng { font-size: 12px; opacity: 0.75; }
+.rc-body { padding: 20px 22px; }
+.rc-row { display: flex; flex-direction: column; gap: 14px; }
+.rc-item {}
+.rc-item-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 4px; }
+.rc-item-val { font-size: 13px; color: var(--text); line-height: 1.7; }
+.rc-pattern {
+  background: var(--card);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 14px;
+  margin-top: 4px;
+  font-size: 13px; color: var(--mid); line-height: 1.75;
+}
+.rc-pattern strong { color: var(--text); font-weight: 600; }
+.rc-tarot {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 4px;
+}
+.rc-tarot-icon { font-size: 20px; }
+.rc-tarot-text { font-size: 13px; color: var(--text); font-weight: 500; }
+.rc-tarot-sub { font-size: 11px; color: var(--mute); margin-top: 1px; }
+
+/* ─────────────────────────────────
+   COMPARE TABLE
+───────────────────────────────── */
+.ctbl-wrap { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 16px 0 22px; }
+.ctbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ctbl th { background: var(--taupe); color: #fff; padding: 9px 10px; text-align: left; font-size: 11px; font-weight: 500; }
+.ctbl td { padding: 9px 10px; color: var(--text); border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.55; }
+.ctbl tr:last-child td { border-bottom: none; }
+.ctbl tr:nth-child(even) td { background: var(--card); }
+.tdg { color: var(--gold); font-weight: 700; white-space: nowrap; }
+
+/* ─────────────────────────────────
+   SUMMARY TABLE
+───────────────────────────────── */
+.stbl-wrap { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.stbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.stbl th { background: var(--taupe); color: #fff; padding: 9px 10px; text-align: left; font-size: 11px; font-weight: 500; }
+.stbl td { padding: 9px 10px; border-bottom: 1px solid var(--line); color: var(--text); line-height: 1.5; vertical-align: middle; }
+.stbl tr:last-child td { border-bottom: none; }
+.stbl tr:nth-child(even) td { background: var(--card); }
+
+/* ─────────────────────────────────
+   NOTICE / NEXT STEP
+───────────────────────────────── */
+.next-box {
+  background: var(--card);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.next-eye { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 5px; }
+.next-ttl { font-family: 'Noto Serif KR', serif; font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 8px; }
+.next-body { font-size: 12.5px; color: var(--mid); line-height: 1.75; }
+
+.rec-box {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.rec-ttl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 10px; }
+.rec-row { display: flex; flex-wrap: wrap; gap: 10px; font-size: 13px; color: var(--mid); }
+.rec-item { display: flex; align-items: baseline; gap: 6px; }
+.rec-line { border-bottom: 1px solid var(--gold); display: inline-block; width: 52px; }
+
+.ntc { font-size: 12px; color: var(--mute); line-height: 1.7; padding: 12px 14px; background: var(--card); border-radius: 6px; border: 1px solid var(--line); }
+
+/* ─────────────────────────────────
+   FOOTER
+───────────────────────────────── */
+.footer {
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  padding: 24px 26px;
+  text-align: center;
+  font-size: 11px; color: var(--mute); line-height: 1.7;
+}
+
+/* ─────────────────────────────────
+   HIDDEN / ANIMATION
+───────────────────────────────── */
+.hidden { display: none !important; }
+.fade-in { animation: fadeIn 0.4s ease forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.sp { height: 16px; }
+.sp8 { height: 8px; }
+
+/* ─────────────────────────────────
+   STEP 2 QUIZ
+───────────────────────────────── */
+#quiz-section { margin-bottom: 24px; }
+.quiz-progress {
+  display: flex; gap: 6px; margin-bottom: 20px;
+}
+.qp-dot {
+  height: 4px; flex: 1; border-radius: 2px;
+  background: var(--line); transition: background 0.3s;
+}
+.qp-dot.done { background: var(--gold); }
+.qp-dot.active { background: var(--gold); opacity: 0.5; }
+
+.quiz-card {
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 20px 18px;
+  margin-bottom: 12px;
+  display: none;
+}
+.quiz-card.active { display: block; animation: fadeIn 0.3s ease; }
+
+.quiz-q-num { font-size: 10px; letter-spacing: 0.16em; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+.quiz-q-text { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.55; margin-bottom: 16px; }
+
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 13px; color: var(--text); line-height: 1.6;
+}
+.quiz-opt:hover { border-color: var(--gold); background: rgba(196,160,106,0.06); }
+.quiz-opt.selected { border-color: var(--gold); background: rgba(196,160,106,0.1); }
+.quiz-opt-circle {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--mute);
+  border-radius: 50%;
+  margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff;
+  transition: all 0.15s;
+}
+.quiz-opt.selected .quiz-opt-circle { background: var(--gold); border-color: var(--gold); }
+
+/* 추천 배너 */
+.recommend-banner {
+  display: none;
+  background: var(--white);
+  border: 1.5px solid var(--gold);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.recommend-banner.show { display: block; animation: fadeIn 0.4s ease; }
+.rb-eye { font-size: 10px; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 6px; }
+.rb-type { font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.rb-sub { font-size: 12px; color: var(--mid); margin-bottom: 10px; }
+.rb-score { font-size: 11px; color: var(--mute); }
+.rb-note { font-size: 11.5px; color: var(--mid); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     COVER
+══════════════════════════════════ -->
+<div class="cover">
+  
+  <div class="cover-title">에니어그램<br><em>간이 자가진단표</em></div>
+  <div class="cover-rule"></div>
+  <div class="cover-desc">
+    핵심 동기와 내면 패턴으로 알아보는 나의 에니어그램 유형.<br>
+    2단계 진단으로 10분 안에 유형을 파악합니다.
+  </div>
+  <div class="cover-howto">
+    <div class="cover-howto-title">진단 방법</div>
+    <div class="hr"><span class="hn">①</span><span>STEP 1에서 세 그룹의 문항을 읽고 해당하는 항목을 체크합니다.</span></div>
+    <div class="hr"><span class="hn">②</span><span>체크 수가 가장 많은 그룹이 자동으로 감지됩니다.</span></div>
+    <div class="hr"><span class="hn">③</span><span>STEP 2에서 해당 중심의 세 유형 중 하나를 선택합니다.</span></div>
+    <div class="hr"><span class="hn">④</span><span>결과 카드와 소울코드 연계 해석이 자동으로 나타납니다.</span></div>
+  </div>
+  <div class="cover-warn">
+    ⚠ 행동이 아닌 <strong>내면의 동기</strong>를 기준으로 응답하세요.
+    현재보다 10~20대의 자신을 떠올리면 더 정확합니다. 좋고 나쁜 유형은 없습니다.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     STEP 1
+══════════════════════════════════ -->
+<div class="section bg-base" id="step1-section">
+  <span class="enlbl">STEP 1  ·  CENTER IDENTIFICATION</span>
+  <div class="stitle">3대 중심 진단</div>
+  <div class="grule"></div>
+  <div class="sdesc">각 그룹에서 자신에게 해당하는 항목을 체크하세요. 체크할수록 실시간으로 집계됩니다.</div>
+
+  <!-- 실시간 카운터 -->
+  <div class="counter-row" id="counter-row">
+    <div class="counter-item" id="cnt-A">
+      <div class="counter-dot cdot j" style="width:8px;height:8px;border-radius:50%;background:#8B7355;margin:0 auto 6px;"></div>
+      <div class="counter-label">장 중심</div>
+      <div class="counter-num" id="num-A">0</div>
+      <div class="counter-of7">/ 7</div>
+    </div>
+    <div class="counter-item" id="cnt-B">
+      <div class="counter-dot cdot g" style="width:8px;height:8px;border-radius:50%;background:#C4A06A;margin:0 auto 6px;"></div>
+      <div class="counter-label">가슴 중심</div>
+      <div class="counter-num" id="num-B">0</div>
+      <div class="counter-of7">/ 7</div>
+    </div>
+    <div class="counter-item" id="cnt-C">
+      <div class="counter-dot cdot m" style="width:8px;height:8px;border-radius:50%;background:#6A8FA8;margin:0 auto 6px;"></div>
+      <div class="counter-label">머리 중심</div>
+      <div class="counter-num" id="num-C">0</div>
+      <div class="counter-of7">/ 7</div>
+    </div>
+  </div>
+
+  <!-- 그룹 A -->
+  <div class="check-group">
+    <div class="cbadge">
+      <div class="cdot j"></div>
+      <div><div class="cbadge-main">그룹 A — 장 중심 · 유형 8, 9, 1번</div><div class="cbadge-sub">Body Center  ·  핵심 감정: 분노</div></div>
+    </div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>나는 "이건 옳지 않다" 혹은 "이건 내 방식이 아니다"라는 강한 내적 기준이 있다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>무언가 부당하거나 강요받는 상황에서 몸이 먼저 반응한다 — 복부가 조여들거나, 등이 굳는 등 신체 반응이 온다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>타인에게 약한 모습을 보이거나, 통제권을 잃거나, 뒤처지는 상황이 특히 불편하다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>나에게 가장 중요한 것은 자율성과 존재감이다. 누군가에게 통제받거나 무시당하는 것이 두렵다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>화가 났을 때 즉각 표출하거나 / 억누르거나 / 도덕적 분개로 표현하는 세 가지 중 하나로 반응한다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>결정할 때 "느낌으로 안다" "직관적으로 확신이 온다"고 표현한다. 논리보다 몸의 감각을 먼저 신뢰한다.</span></div>
+    <div class="ci" data-group="A" onclick="toggle(this)"><span class="chk"></span><span>나는 세상에 내 흔적을 남기고 싶다. 존재가 아무 의미 없이 지워지는 것이 막연히 두렵다.</span></div>
+  </div>
+
+  <!-- 그룹 B -->
+  <div class="check-group">
+    <div class="cbadge">
+      <div class="cdot g"></div>
+      <div><div class="cbadge-main">그룹 B — 가슴 중심 · 유형 2, 3, 4번</div><div class="cbadge-sub">Heart Center  ·  핵심 감정: 수치심</div></div>
+    </div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>나는 "상대방이 나를 어떻게 볼까"를 자주 의식한다. 타인의 반응과 평가가 내 기분에 큰 영향을 준다.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>상처받거나 부끄러운 일이 생겼을 때, 가슴이 철렁하거나 얼굴이 달아오르는 신체 반응이 먼저 온다.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>나에게 가장 두려운 것은 무가치하게 보이는 것이다. 무시당하거나, 필요 없는 존재가 되는 것이 싫다.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>관계 속에서 내 역할을 자주 의식한다 — 이 상황에서 나는 어떤 사람이어야 하는가, 상대가 무엇을 원하는가.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>감정 표현이 풍부하거나 반대로 감정을 전략적으로 조절하는 편이다. 어느 쪽이든 감정이 삶의 중심에 있다.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>"진짜 나는 어떤 사람인가"라는 질문을 품고 산다. 보여주는 나와 내면의 나 사이에 거리감을 느낀 적 있다.</span></div>
+    <div class="ci" data-group="B" onclick="toggle(this)"><span class="chk"></span><span>사람들이 나를 인정하고, 좋아하고, 필요로 해줄 때 가장 에너지가 살아난다. 무관심이 가장 힘들다.</span></div>
+  </div>
+
+  <!-- 그룹 C -->
+  <div class="check-group">
+    <div class="cbadge">
+      <div class="cdot m"></div>
+      <div><div class="cbadge-main">그룹 C — 머리 중심 · 유형 5, 6, 7번</div><div class="cbadge-sub">Head Center  ·  핵심 감정: 공포</div></div>
+    </div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>나는 어떤 상황에서든 "만약 이것이 잘못되면"을 먼저 생각한다. 미리 시뮬레이션하고 대비책을 세우는 것이 습관이다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>불안하거나 긴장될 때 머리가 더 바빠진다. 분석하고, 조사하고, 계획을 세워야 마음이 안정된다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>가장 두려운 것은 준비 없이 무너지는 것이다. 예측 불가능한 상황, 정보 없이 결정해야 하는 순간이 불편하다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>정보와 지식을 모으는 것에서 안심감을 얻는다. 충분히 알아야 행동할 수 있다고 느낀다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>어떤 결정이든 한 번 더 확인하고 싶어진다. 믿었다가 실망한 경험이 있어서 신뢰를 주는 것이 쉽지 않다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>내 에너지는 한정적이라고 느낀다. 사람을 많이 만나거나 자극이 많은 환경 후에는 반드시 혼자만의 회복 시간이 필요하다.</span></div>
+    <div class="ci" data-group="C" onclick="toggle(this)"><span class="chk"></span><span>미래에 더 좋은 것이 있을 것이라 믿으며 현재를 버티거나, 최악을 대비하며 안전망 확보에 힘을 쏟는다.</span></div>
+  </div>
+
+  <button class="btn-primary" id="btn-next" onclick="goStep2()" disabled>
+    STEP 2로 이동 — 세부 유형 선택 →
+  </button>
+</div>
+
+
+<!-- ══════════════════════════════════
+     STEP 2 (처음엔 hidden)
+══════════════════════════════════ -->
+<div class="section bg-white hidden" id="step2-section">
+  <span class="enlbl">STEP 2  ·  TYPE IDENTIFICATION</span>
+  <div class="stitle">세부 유형 선택</div>
+  <div class="grule"></div>
+
+  <!-- Step 1 결과 배너 -->
+  <div class="center-result show" id="center-result-banner">
+    <div class="cr-label">STEP 1 결과</div>
+    <div class="cr-center" id="cr-center-name">—</div>
+    <div class="cr-types" id="cr-types">—</div>
+    <div class="cr-score" id="cr-score">—</div>
+  </div>
+
+  <!-- 퀴즈 섹션 -->
+  <div id="quiz-section">
+    <div class="enlbl" style="margin-bottom:8px;">STEP 2-A  ·  변별 질문</div>
+    <div style="font-size:13px;color:var(--mid);line-height:1.75;margin-bottom:16px;">4가지 질문에 답하면 세 유형 중 나에게 맞는 유형을 추천해드립니다.</div>
+    <div class="quiz-progress" id="quiz-progress"></div>
+    <div id="quiz-cards-container"></div>
+  </div>
+
+  <!-- 추천 배너 -->
+  <div class="recommend-banner" id="recommend-banner">
+    <div class="rb-eye">RECOMMENDED TYPE</div>
+    <div class="rb-type" id="rb-type-name">—</div>
+    <div class="rb-sub" id="rb-sub">—</div>
+    <div class="rb-score" id="rb-score">—</div>
+    <div class="rb-note">아래 카드를 직접 확인하고, 더 잘 맞는 유형으로 바꿔도 됩니다.</div>
+  </div>
+
+  <!-- 유형 카드 (처음엔 hidden) -->
+  <div id="type-cards-wrapper" class="hidden">
+    <div class="enlbl" style="margin-bottom:8px;">STEP 2-B  ·  최종 유형 선택</div>
+    <div class="sdesc" id="step2-desc">세 유형의 설명을 읽고 자신의 내면 패턴에 가장 가까운 유형을 선택하세요.</div>
+    <div class="type-cards" id="type-cards-container"></div>
+    <div id="compare-table-container"></div>
+  </div>
+
+
+  <button class="btn-ghost" onclick="resetDiagnosis()">← 처음부터 다시하기</button>
+</div>
+
+
+<!-- ══════════════════════════════════
+     RESULT (처음엔 hidden)
+══════════════════════════════════ -->
+<div class="section bg-base hidden" id="result-section">
+  <span class="enlbl">YOUR RESULT</span>
+  <div class="stitle">진단 결과</div>
+  <div class="grule"></div>
+
+  <!-- 결과 카드 (JS로 채워짐) -->
+  <div id="result-card-container"></div>
+
+  <!-- 전체 9유형 요약표 -->
+  <div class="sp"></div>
+  <span class="enlbl">9가지 유형 요약 참조표</span>
+  <div class="stbl-wrap">
+    <table class="stbl">
+      <tr><th>유형</th><th>이름</th><th>핵심 욕구</th><th>격정</th><th>소울코드 키워드</th></tr>
+      <tr><td class="tdg">1번</td><td>개혁가</td><td>온전함·정직</td><td>분개</td><td>정의 / 절제</td></tr>
+      <tr><td class="tdg">2번</td><td>조력자</td><td>사랑·연결</td><td>교만</td><td>여사제 / 은둔자</td></tr>
+      <tr><td class="tdg">3번</td><td>성취자</td><td>가치·효율</td><td>기만</td><td>전차 / 죽음</td></tr>
+      <tr><td class="tdg">4번</td><td>개인주의자</td><td>정체성·의미</td><td>시기</td><td>달 / 마법사</td></tr>
+      <tr><td class="tdg">5번</td><td>탐구자</td><td>지식·역량</td><td>인색</td><td>은둔자 / 태양</td></tr>
+      <tr><td class="tdg">6번</td><td>충실가</td><td>안전·지지</td><td>비겁</td><td>탑 / 별</td></tr>
+      <tr><td class="tdg">7번</td><td>열정가</td><td>기쁨·자유</td><td>탐식</td><td>절제 / 세계</td></tr>
+      <tr><td class="tdg">8번</td><td>도전자</td><td>통제·강함</td><td>정욕</td><td>황제 / 힘</td></tr>
+      <tr><td class="tdg">9번</td><td>평화주의자</td><td>평화·통합</td><td>나태</td><td>매달린 사람 / 세계</td></tr>
+    </table>
+  </div>
+
+  <div class="sp"></div>
+
+  <div class="next-box">
+    <div class="next-eye">NEXT STEP</div>
+    <div class="next-ttl">소울코드 본책으로 더 깊이 들어가세요</div>
+    <div class="next-body">유형이 타로 상담에 어떻게 적용되는지, 유형별 그림자와 소울 카드는 무엇인지는 1권~3권에서 다룹니다. 1권 Chapter 2에서 유형 × 메이저 아르카나 매핑을, 3권 Chapter 1~2에서 방어기제를 확인하세요.</div>
+  </div>
+
+  <div class="rec-box">
+    <div class="rec-ttl">✦ 나의 진단 결과 기록</div>
+    <div class="rec-row">
+      <div class="rec-item">중심 <span class="rec-line" id="rec-center">&nbsp;</span></div>
+      <div class="rec-item">유형 <span class="rec-line" id="rec-type">&nbsp;</span></div>
+    </div>
+  </div>
+
+  <div class="ntc">더 정확한 진단을 원하신다면 한국에니어그램교육연구원(www.kenneagram.com)의 공식 검사를 권합니다. 이 진단표는 간이 진단이며 공식 검사를 대체하지 않습니다.</div>
+
+  <div class="sp"></div>
+  <button class="btn-ghost" onclick="resetDiagnosis()">← 처음부터 다시하기</button>
+</div>
+
+<div class="footer">
+  소울코드 시리즈  ·  드림웨이브
+</div>
+
+
+<script>
+/* ═══════════════════════════════════════
+   DATA
+═══════════════════════════════════════ */
+const CENTERS = {
+  A: { name: '장 중심', eng: 'Body Center', emotion: '분노', types: ['8번', '9번', '1번'], key: 'A' },
+  B: { name: '가슴 중심', eng: 'Heart Center', emotion: '수치심', types: ['2번', '3번', '4번'], key: 'B' },
+  C: { name: '머리 중심', eng: 'Head Center', emotion: '공포', types: ['5번', '6번', '7번'], key: 'C' },
+};
+
+const TYPES = {
+  '8': {
+    num: '8', name: '도전자', eng: 'The Challenger', center: 'A',
+    motive: '배신당하지 않기 위해 강해지는 것. 내가 먼저 힘을 쥐면 아무도 나를 건드리지 못한다.',
+    fear: '취약해지는 것. 통제당하거나 누군가에게 의존하게 되는 것.',
+    pattern: '먼저 강하게 나가는 편이다. 약하다는 것을 들키지 않으려 한다. 신뢰하면 끝까지 지킨다. 불합리한 상황에 참지 못하고, 지키려는 사람에 대한 보호 본능이 강하다.',
+    passion: '정욕 (Lust)',
+    tarot: '황제 / 힘',
+    tarotDesc: '주도권을 쥐는 법 · 부드러운 강함의 발견',
+    anger: '즉각 표출 — 약하게 보이느니 강하게 나간다',
+    fear_word: '"당신은 약해 보여요"',
+    repeat: '선제권을 잡으려 먼저 공격한다',
+  },
+  '9': {
+    num: '9', name: '평화주의자', eng: 'The Peacemaker', center: 'A',
+    motive: '갈등 없이 평화를 유지하는 것. 모두가 괜찮으면 나도 괜찮다.',
+    fear: '갈등과 분리. 내 존재가 주변을 불편하게 만드는 것.',
+    pattern: '화가 나도 잘 모른다. 상대방 의견에 맞추는 게 더 편하다. 결정을 미루고 나의 욕구는 맨 나중으로 밀어놓는 버릇이 있다.',
+    passion: '나태 (Sloth)',
+    tarot: '매달린 사람 / 세계',
+    tarotDesc: '수용적 고립에서 주체적 통합으로',
+    anger: '감각 마취 — 화가 났다는 것을 모른다',
+    fear_word: '"당신이 갈등을 만들어요"',
+    repeat: '자신의 욕구를 지워 갈등을 피한다',
+  },
+  '1': {
+    num: '1', name: '개혁가', eng: 'The Reformer', center: 'A',
+    motive: '옳고 선한 사람이 되는 것. 세상이 더 나은 방향으로 가야 한다고 믿는다.',
+    fear: '나쁜 사람이 되거나 틀리는 것. 비난받거나 결함 있는 존재가 되는 것.',
+    pattern: '잘못된 것을 보면 고쳐야 한다는 충동을 느낀다. 자신과 타인 모두에게 높은 기준을 요구한다. 내면에는 항상 비판의 목소리가 있다.',
+    passion: '분개 (Resentment)',
+    tarot: '정의 / 절제',
+    tarotDesc: '흑백 논리에서 유연함으로 · 완벽함과의 화해',
+    anger: '도덕적 분개 — "화가 아니라 옳지 않기 때문"',
+    fear_word: '"당신이 틀렸어요"',
+    repeat: '완벽해야 한다는 압박을 받는다',
+  },
+  '2': {
+    num: '2', name: '조력자', eng: 'The Helper', center: 'B',
+    motive: '사랑받는 것. 내가 필요한 존재임을 확인받는 것.',
+    fear: '쓸모없는 존재가 되는 것. 사랑받지 못하고 버려지는 것.',
+    pattern: '타인의 필요를 먼저 알아채고 채워준다. "나는 괜찮아"가 습관이다. 받는 것보다 주는 것이 편하지만, 인정받지 못하면 억울함이 쌓인다.',
+    passion: '교만 (Pride)',
+    tarot: '여사제 / 은둔자',
+    tarotDesc: '자신을 위한 컵 채우기 · 홀로서기의 힘',
+    shame: '타인 헌신으로 지운다 — 내가 없어야 더 사랑받는다',
+    fear_word: '"당신은 이기적이에요"',
+    repeat: '주고 또 주다가 결국 소진된다',
+  },
+  '3': {
+    num: '3', name: '성취자', eng: 'The Achiever', center: 'B',
+    motive: '성공하는 것. 가치 있어 보이는 것. 목표를 달성해서 인정받는 것.',
+    fear: '실패하는 것. 무능해 보이는 것. 성취 없이 아무것도 아닌 사람이 되는 것.',
+    pattern: '언제나 더 빠르고 효율적이어야 한다. 목표 없이 있는 상태가 불편하다. 나를 표현할 때 한 일, 성과, 역할을 먼저 말한다.',
+    passion: '기만 (Deceit)',
+    tarot: '전차 / 죽음',
+    tarotDesc: '가면 벗기 = 진짜 시작 · 결과보다 과정의 진실',
+    shame: '성취로 덮는다 — 성공한 사람은 수치스럽지 않다',
+    fear_word: '"당신은 가짜예요"',
+    repeat: '쉬지 못하고 멈추는 것이 두렵다',
+  },
+  '4': {
+    num: '4', name: '개인주의자', eng: 'The Individualist', center: 'B',
+    motive: '진정한 정체성을 찾는 것. 깊이 있고 의미 있는 존재로 인정받는 것.',
+    fear: '평범한 존재가 되는 것. 자신이 결함 있거나 불완전하다는 것.',
+    pattern: '"왜 나만 이런 기분인가"를 자주 생각한다. 남들이 당연히 가진 것이 나에게는 없는 것 같다. 아름다움, 의미, 진정성에 강하게 반응한다.',
+    passion: '시기 (Envy)',
+    tarot: '달 / 마법사',
+    tarotDesc: '고통을 창조로 승화 · 결핍에서 풍요로',
+    shame: '특별함으로 격리한다 — 나는 달라 이해받지 못한다',
+    fear_word: '"당신은 특별하지 않아요"',
+    repeat: '없는 것에 집중하며 있는 것을 놓친다',
+  },
+  '5': {
+    num: '5', name: '탐구자', eng: 'The Investigator', center: 'C',
+    motive: '충분히 알고 이해하는 것. 지식을 쌓아 독립적으로 설 수 있는 것.',
+    fear: '무능하거나 무지한 것. 에너지를 소진당하고 압도당하는 것.',
+    pattern: '정보를 수집하고 관찰하는 것이 행동보다 편하다. 사람 속에 오래 있으면 에너지가 빠진다. 알기 전까지 움직이지 않으려 한다.',
+    passion: '인색 (Avarice)',
+    tarot: '은둔자 / 태양',
+    tarotDesc: '하나를 세상에 내보내는 용기 · 고립에서 연결로',
+    fear2: '고립·지식 축적 — 충분히 알면 두렵지 않다',
+    fear_word: '"당신은 아는 게 없어요"',
+    repeat: '알다가도 행동하지 못하고 준비만 한다',
+  },
+  '6': {
+    num: '6', name: '충실가', eng: 'The Loyalist', center: 'C',
+    motive: '안전하고 지지받는 것. 신뢰할 수 있는 사람과 시스템을 갖는 것.',
+    fear: '위험에 처하는 것. 버려지거나 뒤통수 맞는 것. 홀로 감당하는 것.',
+    pattern: '결정 전에 여러 번 확인하고 최악의 시나리오를 먼저 생각한다. 믿었다가 배신당한 경험이 깊이 남는다. 일이 잘 풀려도 "이게 맞나"라는 불안이 남는다.',
+    passion: '비겁 (Fear/Cowardice)',
+    tarot: '탑 / 별',
+    tarotDesc: '내면의 빛을 신뢰하는 훈련 · 공포 너머의 별',
+    fear2: '확인·대비 — 최악을 생각하면 덜 무섭다',
+    fear_word: '"당신은 믿을 수 없어요"',
+    repeat: '의심하다 놓치거나, 따르다 배신당한다',
+  },
+  '7': {
+    num: '7', name: '열정가', eng: 'The Enthusiast', center: 'C',
+    motive: '행복하고 즐겁게 사는 것. 더 많은 경험과 가능성을 누리는 것.',
+    fear: '고통받는 것. 빠져나올 수 없는 결핍. 선택지가 없어지는 것.',
+    pattern: '부정적 상황에서도 빠르게 긍정적인 면을 찾는다. 계획이 많고 가능성을 좁히는 결정이 어렵다. 멈추면 내 안의 공허가 느껴질 것 같아 바쁘게 산다.',
+    passion: '탐식 (Gluttony)',
+    tarot: '절제 / 세계',
+    tarotDesc: '하나의 완성이 진짜 자유 · 깊이 있는 기쁨으로',
+    fear2: '회피·재구성 — 즐거운 것에 집중하면 고통이 사라진다',
+    fear_word: '"당신은 도망가고 있어요"',
+    repeat: '넓게 시작하고 깊이 완성하지 못한다',
+  },
+};
+
+const CENTER_TYPE_KEYS = { A: ['8','9','1'], B: ['2','3','4'], C: ['5','6','7'] };
+const CMP_HEADER = { A: '분노를 다루는 방식', B: '수치심을 다루는 방식', C: '공포를 다루는 방식' };
+const CMP_KEY   = { A: 'anger', B: 'shame', C: 'fear2' };
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let scores = { A: 0, B: 0, C: 0 };
+let winnerCenter = null;
+let selectedType = null;
+
+/* ═══════════════════════════════════════
+   STEP 1 LOGIC
+═══════════════════════════════════════ */
+function toggle(el) {
+  const group = el.dataset.group;
+  el.classList.toggle('checked');
+  el.querySelector('.chk').textContent = el.classList.contains('checked') ? '✓' : '';
+  scores[group] = document.querySelectorAll(`.ci[data-group="${group}"].checked`).length;
+  updateCounters();
+}
+
+function updateCounters() {
+  const total = scores.A + scores.B + scores.C;
+  const max = Math.max(scores.A, scores.B, scores.C);
+
+  ['A','B','C'].forEach(g => {
+    document.getElementById(`num-${g}`).textContent = scores[g];
+    const el = document.getElementById(`cnt-${g}`);
+    el.classList.toggle('winner', scores[g] === max && max > 0);
+  });
+
+  document.getElementById('btn-next').disabled = total < 5;
+}
+
+/* ═══════════════════════════════════════
+   STEP 1 → STEP 2
+═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   QUIZ DATA
+═══════════════════════════════════════ */
+const QUIZ = {
+  A: [
+    {
+      q: '누군가 나에게 부당하게 행동했을 때 첫 반응은?',
+      opts: [
+        { text: '바로 맞서거나 따진다. 참고 넘기는 게 더 힘들다.', type: '8' },
+        { text: '일단 피하거나 조용히 넘긴다. 직접 부딪히는 게 불편하다.', type: '9' },
+        { text: '속으로 삭히며 "이건 옳지 않다"고 생각한다. 감정보다 원칙이 먼저다.', type: '1' },
+      ]
+    },
+    {
+      q: '가장 참기 힘든 상황은?',
+      opts: [
+        { text: '누군가 나를 무시하거나 통제하려 할 때', type: '8' },
+        { text: '주변에 갈등이나 긴장감이 흐를 때', type: '9' },
+        { text: '규칙이나 원칙이 지켜지지 않을 때', type: '1' },
+      ]
+    },
+    {
+      q: '친한 사람이 솔직하게 말해줄 나의 단점은?',
+      opts: [
+        { text: '너무 강하게 밀어붙이거나 공격적으로 보인다', type: '8' },
+        { text: '결단력이 없고 우유부단하다', type: '9' },
+        { text: '너무 완벽주의적이고 비판적이다', type: '1' },
+      ]
+    },
+    {
+      q: '관계에서 자연스럽게 맡게 되는 역할은?',
+      opts: [
+        { text: '상황을 주도하고 약자를 보호한다', type: '8' },
+        { text: '갈등을 중재하고 모두를 편안하게 만든다', type: '9' },
+        { text: '잘못된 것을 지적하고 올바른 방향을 제시한다', type: '1' },
+      ]
+    },
+  ],
+  B: [
+    {
+      q: '내가 가장 인정받고 싶은 것은?',
+      opts: [
+        { text: '내가 얼마나 도움이 되는 사람인지', type: '2' },
+        { text: '내가 얼마나 유능하고 성공한 사람인지', type: '3' },
+        { text: '내가 얼마나 특별하고 독특한 사람인지', type: '4' },
+      ]
+    },
+    {
+      q: '관계에서 상처받을 때 가장 먼저 드는 감정은?',
+      opts: [
+        { text: '"이렇게 해줬는데 왜 몰라주지?" — 억울함', type: '2' },
+        { text: '내 이미지나 능력이 의심받는 것 같아 불편하다', type: '3' },
+        { text: '"역시 나는 이해받지 못한다" — 외로움·소외감', type: '4' },
+      ]
+    },
+    {
+      q: '아무것도 하지 않아도 되는 여유 시간에 드는 느낌은?',
+      opts: [
+        { text: '내가 필요 없는 존재가 된 것 같아 불안하다', type: '2' },
+        { text: '목표 없이 있는 게 너무 불편하고 낭비 같다', type: '3' },
+        { text: '공허하고 뭔가 결핍된 느낌이 밀려온다', type: '4' },
+      ]
+    },
+    {
+      q: '나를 가장 잘 설명하는 문장은?',
+      opts: [
+        { text: '주변 사람들이 필요로 할 때 나는 항상 거기 있다', type: '2' },
+        { text: '나는 목표를 세우고 반드시 이뤄낸다', type: '3' },
+        { text: '나는 남들이 잘 느끼지 못하는 것을 깊이 느낀다', type: '4' },
+      ]
+    },
+  ],
+  C: [
+    {
+      q: '새로운 도전이나 큰 결정 앞에서 나의 첫 반응은?',
+      opts: [
+        { text: '충분히 알아보고 준비한 후에 행동한다', type: '5' },
+        { text: '잘못될 수 있는 것들을 먼저 점검하고 확인한다', type: '6' },
+        { text: '일단 뛰어들고 문제는 나중에 해결한다', type: '7' },
+      ]
+    },
+    {
+      q: '불안하거나 긴장될 때 나타나는 패턴은?',
+      opts: [
+        { text: '혼자 있으면서 더 많이 공부하거나 분석한다', type: '5' },
+        { text: '신뢰하는 사람에게 확인을 구하거나 계획을 더 세운다', type: '6' },
+        { text: '즐거운 것, 새로운 것으로 주의를 돌린다', type: '7' },
+      ]
+    },
+    {
+      q: '나에게 가장 에너지를 주는 것은?',
+      opts: [
+        { text: '혼자서 깊이 탐구하고 알아가는 시간', type: '5' },
+        { text: '믿을 수 있는 사람들과 함께하는 안정감', type: '6' },
+        { text: '새로운 경험, 여행, 가능성을 탐색하는 것', type: '7' },
+      ]
+    },
+    {
+      q: '주변 사람들이 나를 어떻게 묘사할 것 같은가?',
+      opts: [
+        { text: '과묵하지만 깊이 있고 박식하다', type: '5' },
+        { text: '성실하고 책임감 있지만 걱정이 많다', type: '6' },
+        { text: '밝고 재미있고 항상 새로운 아이디어가 있다', type: '7' },
+      ]
+    },
+  ],
+};
+
+let quizAnswers = {};   // { 0: '8', 1: '9', ... }
+let currentQ = 0;
+let totalQ = 0;
+
+/* ═══════════════════════════════════════
+   RENDER QUIZ
+═══════════════════════════════════════ */
+function renderQuiz(centerKey) {
+  const qs = QUIZ[centerKey];
+  totalQ = qs.length;
+  currentQ = 0;
+  quizAnswers = {};
+
+  // 진행 바
+  const prog = document.getElementById('quiz-progress');
+  prog.innerHTML = qs.map((_, i) => `<div class="qp-dot" id="qpd-${i}"></div>`).join('');
+
+  // 카드 생성
+  const container = document.getElementById('quiz-cards-container');
+  container.innerHTML = qs.map((q, i) => `
+    <div class="quiz-card ${i === 0 ? 'active' : ''}" id="qcard-${i}">
+      <div class="quiz-q-num">질문 ${i + 1} / ${qs.length}</div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o, j) => `
+          <div class="quiz-opt" data-qi="${i}" data-type="${o.type}" onclick="pickOpt(this, ${i}, '${o.type}')">
+            <div class="quiz-opt-circle">${j === 0 ? 'A' : j === 1 ? 'B' : 'C'}</div>
+            <span>${o.text}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  updateProgress();
+}
+
+function pickOpt(el, qi, typeKey) {
+  // 선택 표시
+  el.closest('.quiz-options').querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  quizAnswers[qi] = typeKey;
+  updateProgress();
+
+  // 잠깐 후 다음 질문으로
+  setTimeout(() => {
+    if (qi + 1 < totalQ) {
+      document.getElementById(`qcard-${qi}`).classList.remove('active');
+      document.getElementById(`qcard-${qi + 1}`).classList.add('active');
+      currentQ = qi + 1;
+      updateProgress();
+      document.getElementById(`qcard-${qi + 1}`).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+      // 모든 질문 완료 → 채점
+      scoreQuiz();
+    }
+  }, 380);
+}
+
+function updateProgress() {
+  for (let i = 0; i < totalQ; i++) {
+    const dot = document.getElementById(`qpd-${i}`);
+    if (!dot) continue;
+    dot.className = 'qp-dot';
+    if (quizAnswers[i]) dot.classList.add('done');
+    else if (i === currentQ) dot.classList.add('active');
+  }
+}
+
+function scoreQuiz() {
+  // 점수 집계
+  const scores = {};
+  Object.values(quizAnswers).forEach(t => { scores[t] = (scores[t] || 0) + 1; });
+  const maxScore = Math.max(...Object.values(scores));
+  const winner = Object.keys(scores).find(k => scores[k] === maxScore);
+  const t = TYPES[winner];
+
+  // 추천 배너 표시
+  const banner = document.getElementById('recommend-banner');
+  document.getElementById('rb-type-name').textContent = `${t.num}번 유형 — ${t.name}`;
+  document.getElementById('rb-sub').textContent = `${t.eng}  ·  핵심 격정: ${t.passion}`;
+  const scoreArr = Object.entries(scores).map(([k,v]) => `${TYPES[k].num}번 ${v}점`).join('  /  ');
+  document.getElementById('rb-score').textContent = `채점 결과: ${scoreArr}`;
+  banner.classList.add('show');
+
+  // 유형 카드 표시
+  document.getElementById('type-cards-wrapper').classList.remove('hidden');
+  document.getElementById('type-cards-wrapper').classList.add('fade-in');
+
+  // 카드 렌더 + 추천 카드 하이라이트
+  renderTypeCardsWithRecommend(winnerCenter, winner);
+  renderCompareTable(winnerCenter);
+
+  banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderTypeCardsWithRecommend(centerKey, recommendedType) {
+  const container = document.getElementById('type-cards-container');
+  container.innerHTML = '';
+  CENTER_TYPE_KEYS[centerKey].forEach(typeKey => {
+    const t = TYPES[typeKey];
+    const isRec = typeKey === recommendedType;
+    const card = document.createElement('div');
+    card.className = 'tc' + (isRec ? ' selected' : '');
+    card.dataset.type = typeKey;
+    card.onclick = () => selectType(typeKey);
+    card.innerHTML = `
+      <div class="tc-wm">${t.num}</div>
+      <div class="tc-select-mark">✓</div>
+      ${isRec ? '<div style="position:absolute;top:10px;left:14px;font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:0.1em;background:rgba(196,160,106,0.12);padding:2px 8px;border-radius:10px;">추천</div>' : ''}
+      <div class="tc-name" style="${isRec ? 'margin-top:18px;' : ''}">${t.num}번 유형 — ${t.name}</div>
+      <div class="tc-eng">${t.eng}</div>
+      <div class="tc-divider"></div>
+      <div class="tc-grid">
+        <div class="tc-cell">
+          <div class="tc-lbl">핵심 동기</div>
+          <div class="tc-val">${t.motive}</div>
+        </div>
+        <div class="tc-cell">
+          <div class="tc-lbl">핵심 공포</div>
+          <div class="tc-val">${t.fear}</div>
+        </div>
+      </div>
+      <div class="tc-pat"><strong>내 안의 ${t.num}번 패턴</strong> — ${t.pattern}</div>
+    `;
+    container.appendChild(card);
+  });
+  // 추천 유형 자동 선택
+  selectType(recommendedType);
+}
+
+function goStep2() {
+  const max = Math.max(scores.A, scores.B, scores.C);
+  winnerCenter = Object.keys(scores).find(k => scores[k] === max);
+
+  // 결과 배너 업데이트
+  const center = CENTERS[winnerCenter];
+  document.getElementById('cr-center-name').textContent = `${center.name} (${center.eng})`;
+  document.getElementById('cr-types').textContent = `유형 ${center.types.join(' · ')}`;
+  document.getElementById('cr-score').textContent =
+    `A: ${scores.A}개  B: ${scores.B}개  C: ${scores.C}개 → ${center.name} 최다`;
+
+  // 유형 카드 생성
+  // 퀴즈 렌더링
+  renderQuiz(winnerCenter);
+
+  // 섹션 표시
+  document.getElementById('step2-section').classList.remove('hidden');
+  document.getElementById('step2-section').classList.add('fade-in');
+  document.getElementById('step2-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ═══════════════════════════════════════
+   RENDER TYPE CARDS
+═══════════════════════════════════════ */
+function renderTypeCards(centerKey) {
+  const container = document.getElementById('type-cards-container');
+  container.innerHTML = '';
+  CENTER_TYPE_KEYS[centerKey].forEach(typeKey => {
+    const t = TYPES[typeKey];
+    const card = document.createElement('div');
+    card.className = 'tc';
+    card.dataset.type = typeKey;
+    card.onclick = () => selectType(typeKey);
+    card.innerHTML = `
+      <div class="tc-wm">${t.num}</div>
+      <div class="tc-select-mark">✓</div>
+      <div class="tc-name">${t.num}번 유형 — ${t.name}</div>
+      <div class="tc-eng">${t.eng}</div>
+      <div class="tc-divider"></div>
+      <div class="tc-grid">
+        <div class="tc-cell">
+          <div class="tc-lbl">핵심 동기</div>
+          <div class="tc-val">${t.motive}</div>
+        </div>
+        <div class="tc-cell">
+          <div class="tc-lbl">핵심 공포</div>
+          <div class="tc-val">${t.fear}</div>
+        </div>
+      </div>
+      <div class="tc-pat"><strong>내 안의 ${t.num}번 패턴</strong> — ${t.pattern}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderCompareTable(centerKey) {
+  const container = document.getElementById('compare-table-container');
+  const keys = CENTER_TYPE_KEYS[centerKey];
+  const cmpKey = CMP_KEY[centerKey];
+  const header = CMP_HEADER[centerKey];
+  container.innerHTML = `
+    <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.08em;margin:16px 0 8px;">▸ ${CENTERS[centerKey].name} 3유형 핵심 비교</div>
+    <div class="ctbl-wrap">
+      <table class="ctbl">
+        <tr>
+          <th style="width:10%">유형</th>
+          <th style="width:35%">${header}</th>
+          <th style="width:26%">두려운 말</th>
+          <th>반복 패턴</th>
+        </tr>
+        ${keys.map(k => `
+          <tr>
+            <td class="tdg">${TYPES[k].num}번</td>
+            <td>${TYPES[k][cmpKey] || '—'}</td>
+            <td>${TYPES[k].fear_word}</td>
+            <td>${TYPES[k].repeat}</td>
+          </tr>
+        `).join('')}
+      </table>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════
+   STEP 2 → RESULT
+═══════════════════════════════════════ */
+function selectType(typeKey) {
+  // 카드 선택 상태
+  document.querySelectorAll('.tc').forEach(el => el.classList.remove('selected'));
+  document.querySelector(`.tc[data-type="${typeKey}"]`).classList.add('selected');
+  selectedType = typeKey;
+
+  // 결과 카드 렌더링
+  renderResult(typeKey);
+
+  // 잠깐 후 스크롤
+  setTimeout(() => {
+    document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 250);
+}
+
+function renderResult(typeKey) {
+  const t = TYPES[typeKey];
+  const center = CENTERS[t.center];
+
+  // 결과 기록란
+  document.getElementById('rec-center').textContent = center.name;
+  document.getElementById('rec-type').textContent = `${t.num}번 ${t.name}`;
+
+  const container = document.getElementById('result-card-container');
+  container.innerHTML = `
+    <div class="result-card fade-in">
+      <div class="rc-header">
+        <div class="rc-eyebrow">MY SOUL TYPE</div>
+        <div class="rc-type-name">${t.num}번 유형 — ${t.name}</div>
+        <div class="rc-eng">${t.eng}  ·  ${center.name}</div>
+      </div>
+      <div class="rc-body">
+        <div class="rc-row">
+          <div class="rc-item">
+            <div class="rc-item-label">핵심 동기</div>
+            <div class="rc-item-val">${t.motive}</div>
+          </div>
+          <div class="rc-item">
+            <div class="rc-item-label">핵심 공포</div>
+            <div class="rc-item-val">${t.fear}</div>
+          </div>
+          <div class="rc-item">
+            <div class="rc-item-label">핵심 격정 (Passion)</div>
+            <div class="rc-item-val">${t.passion}</div>
+          </div>
+          <div class="rc-item">
+            <div class="rc-item-label">내 안의 패턴</div>
+            <div class="rc-pattern"><strong>${t.num}번의 핵심 언어</strong> — ${t.pattern}</div>
+          </div>
+          <div class="rc-item">
+            <div class="rc-item-label">소울코드 타로 키워드</div>
+            <div class="rc-tarot">
+              <div>
+                <div class="rc-tarot-text">🃏 ${t.tarot}</div>
+                <div class="rc-tarot-sub">${t.tarotDesc}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('result-section').classList.remove('hidden');
+  document.getElementById('result-section').classList.add('fade-in');
+}
+
+/* ═══════════════════════════════════════
+   RESET
+═══════════════════════════════════════ */
+function resetDiagnosis() {
+  scores = { A: 0, B: 0, C: 0 };
+  winnerCenter = null;
+  selectedType = null;
+
+  document.querySelectorAll('.ci').forEach(el => {
+    el.classList.remove('checked');
+    el.querySelector('.chk').textContent = '';
+  });
+  ['A','B','C'].forEach(g => {
+    document.getElementById(`num-${g}`).textContent = '0';
+    document.getElementById(`cnt-${g}`).classList.remove('winner');
+  });
+  document.getElementById('btn-next').disabled = true;
+  document.getElementById('step2-section').classList.add('hidden');
+  document.getElementById('result-section').classList.add('hidden');
+  document.getElementById('type-cards-container').innerHTML = '';
+  document.getElementById('compare-table-container').innerHTML = '';
+  document.getElementById('result-card-container').innerHTML = '';
+  document.getElementById('quiz-cards-container').innerHTML = '';
+  document.getElementById('quiz-progress').innerHTML = '';
+  document.getElementById('recommend-banner').classList.remove('show');
+  document.getElementById('type-cards-wrapper').classList.add('hidden');
+  quizAnswers = {};
+  currentQ = 0;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
